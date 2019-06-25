@@ -60,7 +60,7 @@ def wiki_to_md(text):
         # Italics
         line = re.sub("//(.*?)//", "_\\1_", line)
         # Remove wiki links
-        line = re.sub("\\[\\[(\\w+?)\\]\\]", "\\1", line)
+        line = re.sub("\\[\\[(\\w+?)\\]\\]", "[\\1](\\1.md)", line)
         # Change links to markdown format
         line = re.sub("\\[\\[(.*)\\|(.*)\\]\\]", "[\\1](\\2)", line)
         # Code
@@ -85,7 +85,7 @@ def sanitize(value):
 
     :param value: string
     """
-    value = unicode(value)
+    value = unicode(value, "utf-8")
     value = unicodedata.normalize('NFKD', value).encode('ascii', 'ignore')
     value = unicode(re.sub('[^\w\s-]', '', value).strip())
     return value
